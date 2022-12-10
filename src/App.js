@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import "./index.css";
 
-function App() {
+const App = (props) => {
+  const handleAdd = () => {
+    setTodos([{ text: text, done: check }, ...todos]);
+  };
+  const handleTodoText = (e) => {
+    setText(e.target.value);
+  };
+
+  const [text, setText] = useState("");
+
+  const [check, setCheck] = useState(false);
+
+  const [todos, setTodos] = useState([
+    { text: "AAA", done: true },
+    { text: "BBB", done: false },
+    { text: "CCC", done: true },
+  ]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input type="text" onChange={handleTodoText} />
+      <input type="checkbox" onChange={() => setCheck(!check)} />
+      <button onClick={handleAdd}>click</button>
+      <div>
+        {todos.map((item) => {
+          return (
+            <div>
+              <input type="checkbox" checked={item.done} />
+              {item.text}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
