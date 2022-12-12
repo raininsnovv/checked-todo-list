@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
 import "./index.css";
+import { CheckedInput } from "./components/CheckedInput";
 
-const App = (props) => {
+const App = () => {
   const handleAdd = () => {
-    setTodos([{ text: text, done: check }, ...todos]);
+    setTodos((prevState) => [...prevState, { text: text, done: check }]);
   };
   const handleTodoText = (e) => {
     setText(e.target.value);
@@ -25,13 +26,8 @@ const App = (props) => {
       <input type="checkbox" onChange={() => setCheck(!check)} />
       <button onClick={handleAdd}>click</button>
       <div>
-        {todos.map((item) => {
-          return (
-            <div>
-              <input type="checkbox" checked={item.done} />
-              {item.text}
-            </div>
-          );
+        {todos.map((item, index) => {
+          return <CheckedInput item={item} key={index} />;
         })}
       </div>
     </div>
